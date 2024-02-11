@@ -4,11 +4,11 @@ const server = require("./app").server
 
 
 server.get('/', function (req, res) {
-    res.redirect('/api/v1/api-docs');
+    res.redirect('/api/v1/docs');
 });
 
 server.get('/api/v1', function (req, res) {
-    res.redirect('/api/v1/api-docs');
+    res.redirect('/api/v1/docs');
 });
 
 

@@ -4,43 +4,13 @@
 
 
 routes
-  |__ /Usuarios
-         |__ /Public 
-         |     |__ /Create
-         |     |__ /Login
-         |     |__ /Logout
-         |     |__ /GetAll
-         |     |__ /GetById
-         |
-         |__ /Private
-             |__ /Create-Admin
-             |__ /Update
-             |__ /Delete
-             |__ /GetAll
-             |__ /GetById
-             |__ /GetByUserId
-             |__ /GetByUserEmail
-             |__ /GetByUserPhone
-             |__ /GetByUserCpf
-             |__ /GetByUserCnpj
-             |__ /GetByUserType
-             |__ /GetByUserStatus
-             |__ /GetByUserCreatedAt
-             |__ /GetByUserUpdatedAt
-             |__ /GetByUserDeletedAt
-             |__ /GetByUserLastLogin
-             |__ /GetByUserLastLogout
-             |__ /GetByUserLastActivity
-             |__ /GetByUserLastPasswordChange
-             |__ /GetByUserLastPasswordReset
-             |__ /GetByUserLastPasswordRecovery
-             |__ /GetByUserLastPasswordRecoveryRequest
-             |__ /GetByUserLastPasswordRecoveryRequestStatus
-             |__ /GetByUserLastPasswordRecoveryRequestCreatedAt
-             |__ /GetByUserLastPasswordRecoveryRequestUpdatedAt
-             |__ /GetByUserLastPasswordRecoveryRequestDeletedAt
-             |__ /GetByUserLastPasswordRecoveryRequestExpiredAt
-
+  |__ /User
+  |   |__ /public
+  |   |     |__ /create.js
+  |   |__/private
+  |   |__ index.js
+  |__index.js
+       
 
 
 keeper-backend

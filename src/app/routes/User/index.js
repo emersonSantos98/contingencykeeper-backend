@@ -1,8 +1,8 @@
 const router = require('express').Router();
 
-const Create = require('./Public/Create.router');
+const Create = require('./Public/create');
 
 
-router.use('/create', Create);
+router.use('/public', Create);
 
 module.exports = router;
