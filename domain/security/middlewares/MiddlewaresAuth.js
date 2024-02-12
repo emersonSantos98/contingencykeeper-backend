@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const jwtConfig = require('./../../../config/jwtConfig');
+const jwtConfig = require('../../../config/jwtConfig');
 
 exports.verifyRefreshToken = (req, res, next) => {
     const { refreshToken } = req.body;

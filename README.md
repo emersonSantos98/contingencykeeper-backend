@@ -7,6 +7,7 @@ routes
   |__ /User
   |   |__ /public
   |   |     |__ /create.js
+  |   |     |__ /login.js
   |   |__/private
     |   |   |__ /update.js
     |   |   |__ /delete.js

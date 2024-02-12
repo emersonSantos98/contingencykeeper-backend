@@ -1,5 +1,5 @@
 class AppError extends Error {
-    constructor(message, statusCode=404, code = 'ERR_GENERIC', data = null) {
+    constructor(message, statusCode= 404, code = 'ERR_GENERIC', data = null) {
         super(message);
         this.code = code;
         this.statusCode = statusCode;

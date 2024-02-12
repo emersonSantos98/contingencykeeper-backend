@@ -1,24 +1,21 @@
 const {User} = require('../../models');
-
-
+const {nextPageUrl} = require('../../../helpers');
 module.exports = {
     async getAll(filter,  pageSize, page) {
         return new Promise(async (resolve, reject) => {
+
             try {
                 let where = null;
 
                 if (filter) {
                     where = {};
                     if (filter.uuid) {
-                        console.log('uuid');
                         where.uuid = filter.uuid;
                     }
                     if (filter.email) {
-                        console.log('email');
                         where.email = filter.email;
                     }
                     if (filter.name) {
-                        console.log('name');
                         where.name = filter.name;
                     }
                 }
@@ -31,7 +28,7 @@ module.exports = {
 
                  const totalPages = Math.ceil(count / pageSize);
 
-                 const nextPage = page < totalPages ? `${process.env.API_URL}:${process.env.PORT}/api/v1/user/private/getAll?page=${page + 1}&pageSize=${pageSize}` : null;
+                 const nextPage =   await nextPageUrl(totalPages, page, pageSize, 'user/private/getAll');
 
                 resolve({
                     data: users,
@@ -49,6 +46,7 @@ module.exports = {
             }
         });
     },
+
     async getById(uuid) {
         return await User.findByPk(uuid);
     },
@@ -56,4 +54,10 @@ module.exports = {
     async getByEmail(email) {
         return await User.findOne({where: {email}});
     }
+}
+
+
+async function createUrl(totalPages, page, pageSize, url) {
+    const URL =  page < totalPages ? `${process.env.API_URL}:${process.env.PORT}/api/v1/${url}?page=${page + 1}&pageSize=${pageSize}` : null;
+    return URL;
 }
