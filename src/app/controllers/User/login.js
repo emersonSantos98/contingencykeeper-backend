@@ -1,6 +1,7 @@
 const { StatusCodes } = require('http-status-codes');
 const yup = require('yup');
 const { UserService } = require('../../../../domain/services');
+const {verifyRefreshToken} = require("../../../../domain/security");
 
 const schema = yup.object().shape({
     email: yup.string().email().required(),
@@ -30,7 +31,19 @@ const login = async (req, res) => {
     }
 }
 
+
+const refreshToken = async (req, res) => {
+    try {
+        const user = await UserService.refreshToken(req.body.refreshToken);
+        return res.status(StatusCodes.OK).json(user);
+    } catch (error) {
+        return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
+    }
+}
+
+
 module.exports = {
     login,
-    loginBodyValidation
+    loginBodyValidation,
+    refreshToken,
 }

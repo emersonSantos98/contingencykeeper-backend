@@ -1,6 +1,6 @@
 const {create} = require('./create');
 const {getById, getAll, getByEmail} = require('./get');
-const {login} = require('./login');
+const {login, refreshToken} = require('./login');
 
 module.exports = new class UserService {
     create = create;
@@ -8,4 +8,5 @@ module.exports = new class UserService {
     getAll = getAll;
     getByEmail = getByEmail;
     login = login;
+    refreshToken = refreshToken;
 }

@@ -1,6 +1,6 @@
 const {AppError} = require('../../../error/Errors');
 const { userRepository } = require('../../repositories');
-const { createAccessToken } = require('../../security');
+const { createAccessToken, createRefreshToken } = require('../../security');
 const { StatusCodes } = require('http-status-codes');
 const bcrypt = require('bcrypt');
 
@@ -38,5 +38,22 @@ module.exports = {
                reject(error);
            }
        });
+    },
+
+    async refreshToken(refreshToken) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const {accessToken, refreshToken: newRefreshToken} = await createRefreshToken(refreshToken).catch(error => {
+                    throw new AppError(error.message, StatusCodes.INTERNAL_SERVER_ERROR);
+                });
+
+                resolve({
+                    accessToken,
+                    refreshToken: newRefreshToken
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
     }
 }

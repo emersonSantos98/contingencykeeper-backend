@@ -33,7 +33,7 @@ module.exports = {
                 jwt.verify(payload, refreshSecretKey);
                 const decoded = jwt.decode(payload);
                 const newPayload = {
-                    id: decoded.id,
+                    uuid: decoded.uuid,
                     email: decoded.email,
                 }
                 const accessToken = jwt.sign(newPayload, secretKey, { expiresIn: expiresIn, algorithm: 'HS256' });

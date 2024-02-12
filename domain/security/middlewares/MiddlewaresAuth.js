@@ -2,14 +2,14 @@ const jwt = require('jsonwebtoken');
 const jwtConfig = require('../../../config/jwtConfig');
 
 exports.verifyRefreshToken = (req, res, next) => {
-    const { refreshToken } = req.body;
-
-    if (!refreshToken) {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+    if (!token) {
         return res.status(401).json({ msg: "Acesso negado" });
     }
 
     try {
-        jwt.verify(refreshToken, jwtConfig.jwtConfig.refreshTokenSecret);
+        jwt.verify(token, jwtConfig.jwtConfig.refreshTokenSecret);
         next();
     } catch (error) {
         res.status(403).json({ msg: "Token inválido!" });
@@ -43,8 +43,7 @@ exports.authenticateToken = (req, res, next) => {
         }
 
         req.user = {
-            userId: decoded.userId,
-            role: decoded.role,
+            userUUID: decoded.userUUID,
         };
 
         next();
