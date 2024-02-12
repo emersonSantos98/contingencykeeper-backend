@@ -8,6 +8,11 @@ routes
   |   |__ /public
   |   |     |__ /create.js
   |   |__/private
+    |   |   |__ /update.js
+    |   |   |__ /delete.js
+    |   |   |__ /get.js
+    |   |   |__ /getAll.js
+    |   |   |__ /getById.js
   |   |__ index.js
   |__index.js
        

@@ -1,12 +1,11 @@
 const { userRepository } = require('../../repositories');
-
+const { hashPassword, } = require('../../../helpers');
 
 
 module.exports = {
     async create(user) {
-        console.log('user', user);
-
-        return userRepository.create({...user, hash_senha: user.password});
+        user.password = await hashPassword(user.password);
+        return userRepository.create({...user, hash_password: user.password});
     }
 }
 

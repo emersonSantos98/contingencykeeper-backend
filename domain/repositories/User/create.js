@@ -1,13 +1,13 @@
-const {Usuario} = require('../../models');
+const {User} = require('../../models');
 const { v4: uuidv4 } = require('uuid');
 const { Op } = require("sequelize");
 
-const create = async ({nome, email, hash_senha}) => {
-    return  await Usuario.create({
+const create = async ({name, email, hash_password}) => {
+    return  await User.create({
         uuid: 'Us_' + uuidv4(),
-        nome,
+        name,
         email,
-        hash_senha
+        hash_password
     });
 }
 

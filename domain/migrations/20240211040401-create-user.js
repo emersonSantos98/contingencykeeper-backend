@@ -3,22 +3,22 @@ const { DataTypes } = require('sequelize');
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Usuarios', {
+    await queryInterface.createTable('Users', {
       uuid: {
-        type: DataTypes.UUID,
+        type: DataTypes.STRING(255),
         allowNull: false,
         primaryKey: true,
       },
-      nome: {
+      name: {
         type: Sequelize.STRING(255)
       },
       email: {
         type: Sequelize.STRING(255)
       },
-      hash_senha: {
+      hash_password: {
         type: Sequelize.STRING(255)
       },
-      created_ats: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
@@ -31,7 +31,7 @@ module.exports = {
     // Adicionar um trigger para definir o valor padrão da coluna uuid
     await queryInterface.sequelize.query(`
       CREATE TRIGGER set_uuid_default 
-      BEFORE INSERT ON Usuarios 
+      BEFORE INSERT ON Users 
       FOR EACH ROW 
       SET NEW.uuid = CONCAT('Us_', UUID());
     `);
@@ -42,6 +42,6 @@ module.exports = {
       DROP TRIGGER IF EXISTS set_uuid_default;
     `);
 
-    await queryInterface.dropTable('Usuarios');
+    await queryInterface.dropTable('Users');
   }
 };

@@ -40,7 +40,11 @@ const {UserControllers} = require('../../../controllers');
  *         description: Bad request
  */
 
-router.post('/create', UserControllers.createBodyValidation,  UserControllers.create );
+router.post('/create',
+    UserControllers.userExists,
+    UserControllers.createBodyValidation,
+    UserControllers.create
+);
 
 
 module.exports = router;

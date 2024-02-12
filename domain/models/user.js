@@ -5,7 +5,7 @@ const {
 const { v4: uuidv4 } = require('uuid');
 
 module.exports = (sequelize, DataTypes) => {
-  class Usuario extends Model {
+  class User extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -15,28 +15,28 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Usuario.init({
+  User.init({
     uuid: {
-      type: DataTypes.UUID,
+      type: DataTypes.STRING(255),
       allowNull: false,
       primaryKey: true,
     },
-    nome: {
+    name: {
       type: DataTypes.STRING(255)
     },
     email: {
       type: DataTypes.STRING(255)
     },
-    hash_senha: {
+    hash_password: {
       type: DataTypes.STRING(255)
     },
   }, {
     sequelize,
-    modelName: 'Usuario',
-    tableName: 'usuarios',
+    modelName: 'User',
+    tableName: 'users',
     hooks: {
-      beforeCreate: (usuario, options) => {
-        usuario.uuid = 'Us_' + uuidv4();
+      beforeCreate: (user, options) => {
+        user.uuid = `Us_${uuidv4()}`;
       }
     },
     timestamps: true,
@@ -44,5 +44,5 @@ module.exports = (sequelize, DataTypes) => {
     updatedAt: 'updated_at',
     underscored: true,
   });
-  return Usuario;
+  return User;
 };

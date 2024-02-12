@@ -8,6 +8,8 @@ const swaggerFile = require('./../swagger-output.json');
 const routes = require('../src/app/routes/index');
 const { AppError } = require('../error/Errors');
 require('dotenv').config();
+const moment = require('moment-timezone');
+moment.tz.setDefault('America/Sao_Paulo');
 
 
 const baseURLCors = process.env.FRONTEND_URL.split(',')
