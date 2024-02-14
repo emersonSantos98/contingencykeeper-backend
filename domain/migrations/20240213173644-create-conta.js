@@ -3,26 +3,53 @@ const { DataTypes } = require('sequelize');
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Conta', {
       uuid: {
         type: DataTypes.STRING(255),
         allowNull: false,
         primaryKey: true,
       },
-      name: {
+      usuario_uuid: {
+        type: Sequelize.STRING(255),
+        references: {
+          model: 'users',
+          key: 'uuid'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      nome_conta: {
         type: Sequelize.STRING(255)
       },
-      email: {
+      usuario_conta: {
         type: Sequelize.STRING(255)
       },
-      hash_password: {
+      senha_conta: {
         type: Sequelize.STRING(255)
       },
-      created_at: {
+      tipo_conta_uuid: {
+        type: Sequelize.STRING(255),
+        references: {
+          model: 'TipoConta',
+          key: 'uuid'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      status_conta_uuid: {
+        type: Sequelize.STRING(255),
+        references: {
+          model: 'StatusConta',
+          key: 'uuid'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
       }
@@ -35,7 +62,7 @@ module.exports = {
     if (results.length > 0) {
       await queryInterface.sequelize.query(`
         CREATE TRIGGER set_uuid_default 
-        BEFORE INSERT ON Users
+        BEFORE INSERT ON Conta
         FOR EACH ROW 
         SET NEW.uuid = CONCAT('Us_', UUID());
       `);
@@ -46,6 +73,6 @@ module.exports = {
       DROP TRIGGER IF EXISTS set_uuid_default;
     `);
 
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('Conta');
   }
 };

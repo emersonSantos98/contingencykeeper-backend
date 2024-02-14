@@ -13,10 +13,27 @@ routes
     |   |   |__ /delete.js
     |   |   |__ /get.js
     |   |   |__ /getAll.js
-    |   |   |__ /getById.js
+    |   |   |__ /getOne.js
   |   |__ index.js
   |__index.js
-       
+
+
+
+
+routes
+|__ /Status_Accounts
+|   |__ /public
+|   |__/private
+|   |   |__ create.js
+|   |   |__ update.js
+|   |   |__ delete.js
+|   |   |__ getAll.js
+|   |   |__ getOne.js
+|   |__ index.js
+|__index.js
+
+
+
 
 
 keeper-backend
