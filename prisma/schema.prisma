@@ -10,37 +10,79 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Event {
-  id               String     @id @default(uuid())
-  title            String
-  details          String?
-  slug             String     @unique
-  maximumAttendees Int?       @map("maximum_attendees") // numero maximo de atendees
-  attendees        Attendee[]
+model User {
+  id           String  @id @default(uuid())
+  name         String
+  display_name String?
+  email        String  @unique
+  password     String
+  currency     String?
 
-  @@map("events")
+  roleId Int
+
+  // relacionamentos
+  role        Role         @relation(fields: [roleId], references: [id])
+  permissions Permission[]
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@map("users")
 }
 
-model Attendee {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String
+model Role {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String?
+
+  // relacionamento
+  permissions     Permission[]
+  permissionRoles PermissionRole[]
+
   createdAt DateTime @default(now()) @map("created_at")
-  eventId   String   @map("event_id")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+  User      User[]
 
-  event    Event      @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  checkIns CheckIns?
-
-  @@unique([eventId, email])
-  @@map("attendees")
+  @@map("roles")
 }
 
-model CheckIns {
-  id         Int      @id @default(autoincrement())
-  createdAt  DateTime @default(now()) @map("created_at")
+model Permission {
+  id      Int    @id @default(autoincrement())
+  action  String
+  subject String
 
-  attendee   Attendee @relation(fields: [attendeeId], references: [id], onDelete: Cascade)
-  attendeeId Int      @unique @map("attendee_id")
+  // relacionamentos
+  users           User[] // Usuários com permissão direta
+  permissionRoles PermissionRole[]
 
-  @@map("check_ins")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+  Role      Role?    @relation(fields: [roleId], references: [id])
+  roleId    Int?
+
+  @@map("permissions")
+}
+
+model PermissionRole {
+  permissionId Int
+  roleId       Int
+
+  // Relacionamentos corrigidos
+  permission Permission @relation(fields: [permissionId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+  Role      Role     @relation(fields: [roleId], references: [id])
+
+  @@id([permissionId, roleId])
+  @@map("permission_roles")
+}
+
+model UserPermissions {
+  userId       String
+  permissionId Int
+
+  @@id([userId, permissionId])
+  @@map("user_permissions")
 }

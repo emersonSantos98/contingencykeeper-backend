@@ -1,0 +1,8 @@
+-- CreateTable
+CREATE TABLE "permission_roles" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "permissionId" INTEGER NOT NULL,
+    "roleId" INTEGER NOT NULL,
+    "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
