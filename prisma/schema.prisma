@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id           String  @id @default(uuid())
+  id           Int     @id @default(autoincrement())
   name         String
   display_name String?
   email        String  @unique
@@ -37,7 +37,6 @@ model Role {
   description String?
 
   // relacionamento
-  permissions     Permission[]
   permissionRoles PermissionRole[]
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -58,8 +57,6 @@ model Permission {
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
-  Role      Role?    @relation(fields: [roleId], references: [id])
-  roleId    Int?
 
   @@map("permissions")
 }
@@ -77,12 +74,4 @@ model PermissionRole {
 
   @@id([permissionId, roleId])
   @@map("permission_roles")
-}
-
-model UserPermissions {
-  userId       String
-  permissionId Int
-
-  @@id([userId, permissionId])
-  @@map("user_permissions")
 }

@@ -5,12 +5,9 @@ import { fastifySwaggerUi } from '@fastify/swagger-ui'
 import fastifyCors from '@fastify/cors'
 
 import { serializerCompiler, validatorCompiler, jsonSchemaTransform, ZodTypeProvider } from 'fastify-type-provider-zod'
-import { createEvent } from "./routes/create-event";
-import { registerForEvent } from "./routes/register-for-event";
-import { getEvent } from "./routes/get-event";
-import { getAttendeeBadge } from "./routes/get-attendee-badge";
-import { checkIn } from "./routes/check-in";
-import { getEventAttendees } from "./routes/get-event-attendees";
+
+import { createUser } from "./routes/users/create-user"
+import { listUsers } from "./routes/users/list-users"
 
 import { errorHandler } from "./Utils/error-handler";
 
@@ -40,12 +37,8 @@ app.register(fastifySwaggerUi, {
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 
-app.register(createEvent)
-app.register(registerForEvent)
-app.register(getEvent)
-app.register(getAttendeeBadge)
-app.register(checkIn)
-app.register(getEventAttendees)
+app.register(createUser)
+app.register(listUsers)
 
 app.setErrorHandler(errorHandler)
 
